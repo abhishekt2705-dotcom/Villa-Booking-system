@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -29,11 +31,20 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) {
-        if (userRepository.count() == 0) {
-            logger.info("Database is empty. Initializing user Abhishek and villas...");
+        // Automatically purge any previous mock/example accounts from the database
+        List<User> mockUsers = userRepository.findAll().stream()
+                .filter(u -> u.getEmail().contains("@example.com") || u.getEmail().equals("admin@villabook.com"))
+                .toList();
 
-            // 1. Seed User Abhishek as Admin
+        if (!mockUsers.isEmpty()) {
+            logger.info("Purging {} old mock/example user accounts from database...", mockUsers.size());
+            userRepository.deleteAll(mockUsers);
+        }
+
+        // Ensure Admin Abhishek exists
+        if (!userRepository.existsByEmail("abhishek@villabook.com") && !userRepository.existsByEmail("abhit@gmail.com")) {
             User abhishek = new User(
                     "Abhishek",
                     "abhishek@villabook.com",
@@ -41,8 +52,11 @@ public class DataInitializer implements CommandLineRunner {
                     Role.ADMIN
             );
             userRepository.save(abhishek);
+            logger.info("Admin account for Abhishek initialized.");
+        }
 
-            // 2. Seed Villas
+        // Seed Villas if none exist
+        if (villaRepository.count() == 0) {
             Villa villa1 = new Villa(
                     "Villa Paradise",
                     "A breathtaking beachfront villa overlooking the Arabian Sea with a private pool, lush tropical garden, and sunset terrace.",
@@ -86,8 +100,6 @@ public class DataInitializer implements CommandLineRunner {
                     VillaStatus.ACTIVE
             );
             villaRepository.save(villa4);
-
-            logger.info("Initial data initialized successfully: User Abhishek (Admin) and 4 Villas.");
         }
     }
 }
