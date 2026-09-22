@@ -31,16 +31,16 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (userRepository.count() == 0) {
-            logger.info("Database is empty. Initializing admin account and villas...");
+            logger.info("Database is empty. Initializing user Abhishek and villas...");
 
-            // 1. Seed Admin User
-            User admin = new User(
-                    "System Admin",
-                    "admin@villabook.com",
-                    passwordEncoder.encode("admin123"),
+            // 1. Seed User Abhishek as Admin
+            User abhishek = new User(
+                    "Abhishek",
+                    "abhishek@villabook.com",
+                    passwordEncoder.encode("Abhi@123"),
                     Role.ADMIN
             );
-            userRepository.save(admin);
+            userRepository.save(abhishek);
 
             // 2. Seed Villas
             Villa villa1 = new Villa(
@@ -87,7 +87,7 @@ public class DataInitializer implements CommandLineRunner {
             );
             villaRepository.save(villa4);
 
-            logger.info("Initial data initialized successfully: 1 Admin, 4 Villas.");
+            logger.info("Initial data initialized successfully: User Abhishek (Admin) and 4 Villas.");
         }
     }
 }

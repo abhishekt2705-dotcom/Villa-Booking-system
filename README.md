@@ -95,11 +95,9 @@ On first run, the backend automatically seeds the database with:
 
 | Role | Email | Password | Name |
 | :--- | :--- | :--- | :--- |
-| **ADMIN** | `admin@villabook.com` | `admin123` | System Admin |
-| **CUSTOMER** | `john@example.com` | `password123` | John Doe |
-| **CUSTOMER** | `jane@example.com` | `password123` | Jane Smith |
+| **ADMIN** | `abhishek@villabook.com` | `Abhi@123` | Abhishek |
 
-> **Tip**: On the `/login` page, you can click the quick autofill buttons to immediately sign in as Admin or Customer.
+> **Tip**: On the `/login` page, you can click the quick autofill button to immediately sign in as Abhishek.
 
 ---
 

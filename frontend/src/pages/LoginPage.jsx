@@ -116,10 +116,10 @@ const LoginPage = () => {
           <div>
             <button
               type="button"
-              onClick={() => setDemoCredentials('admin@villabook.com', 'admin123')}
+              onClick={() => setDemoCredentials('abhishek@villabook.com', 'Abhi@123')}
               className="w-full px-2.5 py-1.5 bg-purple-50 text-purple-700 hover:bg-purple-100 text-xs font-semibold rounded-lg border border-purple-200 transition-colors flex items-center justify-center space-x-1.5"
             >
-              <span>👑 Admin (admin@villabook.com / admin123)</span>
+              <span>👑 Abhishek (abhishek@villabook.com / Abhi@123)</span>
             </button>
           </div>
         </div>
